@@ -4,9 +4,6 @@ from django.shortcuts import redirect, render_to_response, reverse
 from .oauth import Deviantart
 
 
-# Create your views here.
-
-
 def callback(request):
     try:
         deviantart = Deviantart(request.session['redirect_uri'])
