@@ -87,3 +87,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+/djangodeviantartdemo/djangodeviantartdemo/deviantart_settings.py

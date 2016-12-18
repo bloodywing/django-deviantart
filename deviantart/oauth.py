@@ -11,8 +11,7 @@ class Deviantart(object):
     url = 'https://www.deviantart.com/api/v1/oauth2/'
     auth_url = None
     state = None
-    code = None
-    scope = settings.DEVIANTART_SCOPE or ['browse']
+    scope = getattr(settings, 'DEVIANTART_SCOPE', ['browse'])
 
     def __init__(self, redirect_url=None):
 
@@ -52,12 +51,12 @@ class Deviantart(object):
                 'https://www.deviantart.com/oauth2/authorize'
             )
 
-    def fetch_token(self):
+    def fetch_token(self, code):
         self.oauth.fetch_token(
             token_url='https://www.deviantart.com/oauth2/token',
             client_secret=settings.DEVIANTART_CLIENT_SECRET,
             client_id=settings.DEVIANTART_CLIENT_ID,
-            code=self.code,
+            code=code,
         )
 
         self.save_token()

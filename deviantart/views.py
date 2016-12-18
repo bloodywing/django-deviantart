@@ -10,9 +10,7 @@ def callback(request):
     except KeyError:
         return auth(request)
     code = request.GET['code']
-    state = request.GET['state']
-    deviantart.code = code
-    deviantart.fetch_token()
+    deviantart.fetch_token(code)
     return redirect('/')
 
 
