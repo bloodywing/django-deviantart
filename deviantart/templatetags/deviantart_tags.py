@@ -4,8 +4,8 @@ from django.http.request import QueryDict
 
 register = template.Library()
 
-@register.simple_tag(takes_context=True)
-def dA(context, endpoint, **params):
+@register.simple_tag()
+def dA(endpoint, **params):
     deviantart = Deviantart()
     qd = QueryDict(mutable=True)
     qd.update(params)

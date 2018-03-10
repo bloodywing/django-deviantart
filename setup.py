@@ -20,7 +20,7 @@ setup(
     install_requires=requirements,
     description='Deviantart API (OAuth2) for your django project',
     long_description=README,
-    url='https://pierre.isartistic.biz/',
+    url='https://github.com/bloodywing/django-deviantart',
     author='Pierre Geier',
     author_email='pierre@isartistic.biz',
     classifiers=[
