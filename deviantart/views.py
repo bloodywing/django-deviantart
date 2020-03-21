@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseServerError
-from django.shortcuts import redirect, render_to_response, reverse
+from django.shortcuts import redirect, render, reverse
 
 from .oauth import Deviantart
 
@@ -33,4 +33,4 @@ def endpoint(request, dapath):
     if json.get('error_code', 200) >= 400:
         return HttpResponseServerError(status=status_code)
 
-    return render_to_response('deviantart/endpoint.html', json)
+    return render(request, 'deviantart/endpoint.html', json)
