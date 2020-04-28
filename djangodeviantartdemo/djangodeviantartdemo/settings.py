@@ -129,4 +129,5 @@ try:
 except ImportError:
     DEVIANTART_CLIENT_ID = 'changeme'
     DEVIANTART_CLIENT_SECRET = 'changeme'
+    DEVIANTART_ALLOW_USER = False
 

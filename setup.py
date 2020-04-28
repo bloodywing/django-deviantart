@@ -13,7 +13,7 @@ requirements = [
 
 setup(
     name='django-deviantart',
-    version='0.2',
+    version='0.3',
     packages=find_packages(),
     include_package_data=True,
     license='MIT License',
@@ -26,7 +26,7 @@ setup(
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
-        'Framework :: Django :: 1.10',
+        'Framework :: Django :: 3',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',

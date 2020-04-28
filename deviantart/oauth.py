@@ -12,12 +12,25 @@ class Deviantart(object):
     auth_url = None
     state = None
     scope = getattr(settings, 'DEVIANTART_SCOPE', ['browse'])
+    # allow_user: True-> Every user has a deviantart token
+    #             False-> Default
+    allow_user = getattr(settings, 'DEVIANTART_ALLOW_USER', False)
+    # auth_User: Django user authentificated
+    auth_user = None
 
-    def __init__(self, redirect_url=None):
-
-        token = Token.objects.filter(
-            client_id=settings.DEVIANTART_CLIENT_ID
-        ).last()
+    def __init__(self, redirect_url=None, auth_user=None):
+        self.auth_user = auth_user
+        
+        if self.allow_user:
+            # If DEVIANTART_ALLOW_USER= TRUE
+            if not self.auth_user.is_authenticated:
+                #But user given is none 
+                raise Exception("Deviantart:Trying to get token without auth.")
+            # The token must be filtered by the user authenticated
+            token = Token.objects.filter(user=auth_user).last()
+        else:
+            # Default mode
+            token = Token.objects.filter(client_id=settings.DEVIANTART_CLIENT_ID).last()
 
         if token and redirect_url is None:
 
@@ -62,14 +75,17 @@ class Deviantart(object):
         self.save_token()
 
     def save_token(self, *args):
-
+        # If DEVIANTART_ALLOW_USER= TRUE,  save the user, if not save Null
+        user = self.auth_user if self.allow_user else None
+        
         t, created = Token.objects.update_or_create(
             client_id=settings.DEVIANTART_CLIENT_ID,
+            user=user,
             defaults=dict(
                 access_token=self.oauth.token['access_token'],
                 expires_at=timezone.make_aware(timezone.datetime.fromtimestamp(self.oauth.token['expires_at'])),
                 refresh_token=self.oauth.token['refresh_token']
-            )
+        )
         )
 
         return t

@@ -21,9 +21,19 @@ Run migrations
 
 Go back to your settings and add your `client_id`, `client_secret` and some scopes.
 
+    
     DEVIANTART_CLIENT_ID = '1234'  # this should be just a number
     DEVIANTART_CLIENT_SECRET = 'sha1 hash'  # Press show on the deviantart site
     DEVIANTART_SCOPE = ['browse', 'user']  # You can find more informations about the scopes on the deviantart site
+
+Then add your user setting
+    
+    
+    DEVIANTART_ALLOW_USER = True/False
+    
+    If it's set to True, every django account will have their token, and won't share it (this mode will display a error if you use it without authenticate).
+    
+    If it's set to False, all the site (Anonnymous users and users authenticated) will have the same token.
 
 Add the oauth2 urls to your **urls.py**
 
